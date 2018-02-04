@@ -387,6 +387,25 @@ function(activate_precompiled_headers _PRECOMPILED_HEADER _SOURCE_FILES)
 endfunction()
 
 ####################################################################################
+# Adds warnings compiler options to the target depending on the category
+# target Target name
+####################################################################################
+function( set_compiler_warnings target)
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(WARNINGS "-Werror"
+                 "-Wall")
+  elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(WARNINGS "-Werror"
+                 "-Wall")
+  elseif(MSVC)
+    set(WARNINGS "/WX"
+                 "/W4")
+  endif()
+
+  target_compile_options(${target} PRIVATE ${WARNINGS}) 
+endfunction()
+
+####################################################################################
 # Adds or replace a compiler option
 # _OLD_OPTION The option which should be replaced
 # _NEW_OPTION The new option which should be added
@@ -396,7 +415,7 @@ macro( replace_compiler_option _OLD_OPTION _NEW_OPTION)
           CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
           CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
     if(${flag_var} MATCHES ${_OLD_OPTION})
-      string(REGEX REPLACE ${_OLD_OPTION} ${_NEW_OPTION} ${flag_var} "${${flag_var}}")
+      string(REGEX REPLACE "${_OLD_OPTION}" "${_NEW_OPTION}" ${flag_var} "${${flag_var}}")
     else()
       set(${flag_var} "${${flag_var}} ${_NEW_OPTION}")
     endif()
@@ -505,22 +524,6 @@ macro(generateLibraryVersionVariables MAJOR MINOR PATCH PRODUCT_NAME PRODUCT_CPY
   set(LIBRARY_COPYRIGHT ${PRODUCT_CPY_RIGHT})
   set(LIBRARY_LICENSE ${PRODUCT_LICENSE})
 endmacro()
-
-function(set_compiler_warnings target)
-
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        set(WARNINGS -Werror
-                     -Wall)
-    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        set(WARNINGS -Werror
-                     -Wall)
-    elseif(MSVC)
-        set(WARNINGS /WX
-                     /W4)
-    endif()
-
-    target_compile_options(${target} PRIVATE ${WARNINGS}) 
-endfunction()
 
 function(get_latest_supported_cxx CXX_STANDARD)
 

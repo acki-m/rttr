@@ -58,7 +58,6 @@ set_target_properties(bench_variant PROPERTIES DEBUG_POSTFIX _d
                                                FOLDER "Benchmarks"
                                                INSTALL_RPATH "${RTTR_EXECUTABLE_INSTALL_RPATH}"
                                                CXX_STANDARD ${MAX_CXX_STANDARD})
-
 set_compiler_warnings(bench_variant)
 
 install(TARGETS bench_variant

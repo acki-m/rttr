@@ -54,10 +54,12 @@ if(MSVC)
     target_compile_options(bench_method PRIVATE /Zm200)
 endif()
 
+
 set_target_properties(bench_method PROPERTIES DEBUG_POSTFIX _d
                                               FOLDER "Benchmarks"
                                               INSTALL_RPATH "${RTTR_EXECUTABLE_INSTALL_RPATH}"
                                               CXX_STANDARD ${MAX_CXX_STANDARD})
+
 set_compiler_warnings(bench_method)
 
 install(TARGETS bench_method
@@ -112,11 +114,12 @@ if (BUILD_WITH_STATIC_RUNTIME_LIBS)
         target_compile_options(bench_method_s PRIVATE /Zm200 /bigobj)
     endif()
 
+    
     set_target_properties(bench_method_s PROPERTIES DEBUG_POSTFIX _d
                                                     FOLDER "Benchmarks"
                                                     INSTALL_RPATH "${RTTR_EXECUTABLE_INSTALL_RPATH}"
                                                     CXX_STANDARD ${MAX_CXX_STANDARD})
-    
+
     set_compiler_warnings(bench_method_s)
 
     if (MSVC)

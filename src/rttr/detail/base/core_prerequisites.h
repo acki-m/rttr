@@ -40,6 +40,7 @@ namespace rttr
 #define RTTR_COMPILER_MSVC 1
 #define RTTR_COMPILER_GNUC 2
 #define RTTR_COMPILER_CLANG 3
+#define RTTR_COMPILER_APPLECLANG 4
 
 #define RTTR_ENDIAN_LITTLE 1
 #define RTTR_ENDIAN_BIG 2
@@ -62,7 +63,12 @@ namespace rttr
 // Compiler
 /////////////////////////////////////////////////////////////////////////////////////////
 #if defined( __clang__ )
+
+#if defined __apple_build_version__
+#   define RTTR_COMPILER RTTR_COMPILER_APPLECLANG
+#else
 #   define RTTR_COMPILER RTTR_COMPILER_CLANG
+#endif
 #   define RTTR_COMP_VER (((__clang_major__)*100) + \
                          (__clang_minor__*10) + \
                          __clang_patchlevel__)
@@ -95,7 +101,7 @@ namespace rttr
 #elif RTTR_COMPILER == RTTR_COMPILER_GNUC
 #   define RTTR_INLINE          inline
 #   define RTTR_FORCE_INLINE    inline  __attribute__((always_inline))
-#elif RTTR_COMPILER == RTTR_COMPILER_CLANG
+#elif RTTR_COMPILER == RTTR_COMPILER_CLANG || RTTR_COMPILER == RTTR_COMPILER_APPLECLANG
 #   define RTTR_INLINE          inline
 #   define RTTR_FORCE_INLINE    inline  __attribute__((always_inline))
 #else
@@ -120,7 +126,7 @@ namespace rttr
 #       define RTTR_HELPER_DLL_EXPORT
 #       define RTTR_HELPER_DLL_LOCAL
 #   endif
-#elif RTTR_COMPILER == RTTR_COMPILER_CLANG
+#elif RTTR_COMPILER == RTTR_COMPILER_CLANG || RTTR_COMPILER == RTTR_COMPILER_APPLECLANG
 #       define RTTR_HELPER_DLL_IMPORT __attribute__ ((visibility ("default")))
 #       define RTTR_HELPER_DLL_EXPORT __attribute__ ((visibility ("default")))
 #       define RTTR_HELPER_DLL_LOCAL  __attribute__ ((visibility ("hidden")))
@@ -159,7 +165,7 @@ namespace rttr
 #   endif
 #endif
 
-#if RTTR_COMPILER == RTTR_COMPILER_GNUC ||  RTTR_COMPILER == RTTR_COMPILER_CLANG
+#if RTTR_COMPILER == RTTR_COMPILER_GNUC ||  RTTR_COMPILER == RTTR_COMPILER_CLANG || RTTR_COMPILER == RTTR_COMPILER_APPLECLANG
 #   if !defined(__cpp_constexpr) || (__cpp_constexpr < 201304)
 #       define RTTR_NO_CXX14_CONSTEXPR
 #   endif
@@ -201,7 +207,7 @@ namespace rttr
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // deprecated macro
-#if RTTR_COMPILER == RTTR_COMPILER_GNUC || RTTR_COMPILER == RTTR_COMPILER_CLANG
+#if RTTR_COMPILER == RTTR_COMPILER_GNUC || RTTR_COMPILER == RTTR_COMPILER_CLANG || RTTR_COMPILER == RTTR_COMPILER_APPLECLANG
 #   define RTTR_DEPRECATED __attribute__ ((deprecated))
 #   define RTTR_DEPRECATED_WITH_MSG(msg) __attribute__ ((deprecated(msg)))
 #elif RTTR_COMPILER == RTTR_COMPILER_MSVC
@@ -270,7 +276,7 @@ namespace rttr
 
 #endif
 
-#elif RTTR_COMPILER == RTTR_COMPILER_CLANG
+#elif RTTR_COMPILER == RTTR_COMPILER_CLANG || RTTR_COMPILER == RTTR_COMPILER_APPLECLANG
 #   define RTTR_BEGIN_DISABLE_DEPRECATED_WARNING        _Pragma ("clang diagnostic push") \
                                                         _Pragma ("clang diagnostic ignored \"-Wdeprecated-declarations\"")
 #   define RTTR_END_DISABLE_DEPRECATED_WARNING          _Pragma ("clang diagnostic pop")
@@ -278,8 +284,9 @@ namespace rttr
 #   define RTTR_BEGIN_DISABLE_CONDITIONAL_EXPR_WARNING
 #   define RTTR_END_DISABLE_CONDITIONAL_EXPR_WARNING
 
-#if (RTTR_COMP_VER >= 500 && RTTR_PLATFORM != RTTR_PLATFORM_APPLE) || \
-    (RTTR_COMP_VER >= 900 && RTTR_PLATFORM == RTTR_PLATFORM_APPLE)
+#if (RTTR_COMPILER == RTTR_COMPILER_CLANG && RTTR_COMP_VER >= 500 ) || \
+    (RTTR_COMPILER == RTTR_COMPILER_APPLECLANG && RTTR_COMP_VER >= 900)
+
 #       define RTTR_BEGIN_DISABLE_EXCEPT_TYPE_WARNING   _Pragma ("clang diagnostic push") \
                                                         _Pragma ("clang diagnostic ignored \"-Wnoexcept-type\"")
 #       define RTTR_END_DISABLE_EXCEPT_TYPE_WARNING     _Pragma ("clang diagnostic pop")
