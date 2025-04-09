@@ -245,7 +245,7 @@ template<class T> struct _Unique_if<T[]>
     using _Unknown_bound = std::unique_ptr<T[]>;
 };
 
-template<class T, size_t N> struct _Unique_if<T[N]>
+template<class T, std::size_t N> struct _Unique_if<T[N]>
 {
     using _Known_bound = void;
 };
@@ -493,7 +493,7 @@ template <>
 struct hash<std::string>
 {
 public:
-    size_t operator()(const std::string& text) const
+    std::size_t operator()(const std::string& text) const
     {
         return generate_hash(text.data(), text.length());
     }

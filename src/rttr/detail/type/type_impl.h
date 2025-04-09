@@ -474,7 +474,7 @@ namespace std
     struct hash<rttr::type>
     {
     public:
-        size_t operator()(const rttr::type& info) const
+        std::size_t operator()(const rttr::type& info) const
         {
             return hash<rttr::type::type_id>()(info.get_id());
         }

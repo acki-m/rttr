@@ -73,7 +73,7 @@ struct sequential_rank_type_list
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-template<typename T, size_t N>
+template<typename T, std::size_t N>
 struct sequential_container_ranke_type
 {
     using type = typename std::tuple_element<N, typename sequential_rank_type_list<T>::types>::type;

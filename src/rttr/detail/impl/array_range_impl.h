@@ -232,7 +232,7 @@ RTTR_INLINE typename array_range<T, Predicate>::const_reverse_iterator array_ran
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, typename Predicate>
-RTTR_INLINE size_t array_range<T, Predicate>::size() const
+RTTR_INLINE std::size_t array_range<T, Predicate>::size() const
 {
     std::size_t result = 0;
     const_iterator itr{m_begin, this};

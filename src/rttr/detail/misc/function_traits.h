@@ -105,7 +105,7 @@ namespace detail
     template<typename R, typename... Args>
     struct function_traits<R (Args...)>
     {
-        static RTTR_CONSTEXPR_OR_CONST size_t arg_count = sizeof...(Args);
+        static RTTR_CONSTEXPR_OR_CONST std::size_t arg_count = sizeof...(Args);
 
         using return_type   = R;
         using arg_types     = std::tuple<Args...>;
@@ -156,13 +156,13 @@ namespace detail
     // use it like e.g:
     // param_types<F, 0>::type
 
-    template<typename F, size_t Index>
+    template<typename F, std::size_t Index>
     struct param_types
     {
         using type = typename std::tuple_element<Index, typename function_traits<F>::arg_types>::type;
     };
 
-    template<typename F, size_t Index>
+    template<typename F, std::size_t Index>
     using param_types_t = typename param_types<F, Index>::type;
 
     /////////////////////////////////////////////////////////////////////////////////////

@@ -680,7 +680,7 @@ template <>
 struct hash<string_view>
 {
 public:
-    size_t operator()(const string_view& text) const
+    std::size_t operator()(const string_view& text) const
     {
         return generate_hash(text.data(), text.length());
     }
@@ -699,7 +699,7 @@ namespace std
     struct hash<rttr::basic_string_view<CharT, Traits>>
     {
     public:
-        size_t operator()(const rttr::basic_string_view<CharT, Traits>& value) const
+        std::size_t operator()(const rttr::basic_string_view<CharT, Traits>& value) const
         {
             return rttr::detail::generate_hash(value.data(), value.size());
         }

@@ -301,7 +301,7 @@ public:
      *
      * \return The number of elements in the range.
      */
-    size_t size() const;
+    std::size_t size() const;
 
     /*!
      * \brief Checks if the range has no elements, i.e. whether `begin() == end()`.

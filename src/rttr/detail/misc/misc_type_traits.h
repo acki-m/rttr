@@ -523,7 +523,7 @@ namespace detail
      template <typename T>
     struct max_sizeof_list_impl<T>
     {
-        static RTTR_CONSTEXPR_OR_CONST size_t value = sizeof(T);
+        static RTTR_CONSTEXPR_OR_CONST std::size_t value = sizeof(T);
     };
 
     template<typename T1, typename T2, typename... U>
@@ -558,7 +558,7 @@ namespace detail
      template <typename T>
     struct max_alignof_list_impl<T>
     {
-        static RTTR_CONSTEXPR_OR_CONST size_t value = std::alignment_of<T>::value;
+        static RTTR_CONSTEXPR_OR_CONST std::size_t value = std::alignment_of<T>::value;
     };
 
     template<typename T1, typename T2, typename... U>
