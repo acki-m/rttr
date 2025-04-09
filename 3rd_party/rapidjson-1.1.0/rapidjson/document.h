@@ -45,7 +45,7 @@ RAPIDJSON_DIAG_OFF(terminate) // ignore throwing RAPIDJSON_ASSERT in RAPIDJSON_N
 #endif // __GNUC__
 
 #ifndef RAPIDJSON_NOMEMBERITERATORCLASS
-#include <iterator> // std::iterator, std::random_access_iterator_tag
+#include <iterator> // std::random_access_iterator_tag
 #endif
 
 #if RAPIDJSON_HAS_CXX11_RVALUE_REFS
@@ -98,9 +98,7 @@ struct GenericMember {
     \see GenericMember, GenericValue::MemberIterator, GenericValue::ConstMemberIterator
  */
 template <bool Const, typename Encoding, typename Allocator>
-class GenericMemberIterator
-    : public std::iterator<std::random_access_iterator_tag
-        , typename internal::MaybeAddConst<Const,GenericMember<Encoding,Allocator> >::Type> {
+class GenericMemberIterator {
 
     friend class GenericValue<Encoding,Allocator>;
     template <bool, typename, typename> friend class GenericMemberIterator;
@@ -111,7 +109,6 @@ class GenericMemberIterator
 #pragma warning(disable:4996) // std::uncaught_exception is deprecated in C++17
 #endif
     typedef typename internal::MaybeAddConst<Const,PlainType>::Type ValueType;
-    typedef std::iterator<std::random_access_iterator_tag,ValueType> BaseType;
 #if defined(_MSC_VER)
 #pragma warning(pop)
 #endif
@@ -123,16 +120,26 @@ public:
     typedef GenericMemberIterator<true,Encoding,Allocator>  ConstIterator;
     //! Non-constant iterator type
     typedef GenericMemberIterator<false,Encoding,Allocator> NonConstIterator;
+
+    /** \name std::iterator_traits support */
+    //@{
+    typedef ValueType      value_type;
+    typedef ValueType *    pointer;
+    typedef ValueType &    reference;
+    typedef std::ptrdiff_t difference_type;
+    typedef std::random_access_iterator_tag iterator_category;
+    //@}
+
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable:4996) // std::uncaught_exception is deprecated in C++17
 #endif
     //! Pointer to (const) GenericMember
-    typedef typename BaseType::pointer         Pointer;
+    typedef pointer         Pointer;
     //! Reference to (const) GenericMember
-    typedef typename BaseType::reference       Reference;
+    typedef reference       Reference;
     //! Signed integer type (e.g. \c ptrdiff_t)
-    typedef typename BaseType::difference_type DifferenceType;
+    typedef difference_type DifferenceType;
 
 #if defined(_MSC_VER)
 #pragma warning(pop)
@@ -1950,7 +1957,7 @@ private:
         if (count) {
             GenericValue* e = static_cast<GenericValue*>(allocator.Malloc(count * sizeof(GenericValue)));
             SetElementsPointer(e);
-            std::memcpy(e, values, count * sizeof(GenericValue));
+            for (size_t i = 0; i < count; ++i) { e[i] = values[i]; }
         }
         else
             SetElementsPointer(0);
@@ -1963,7 +1970,7 @@ private:
         if (count) {
             Member* m = static_cast<Member*>(allocator.Malloc(count * sizeof(Member)));
             SetMembersPointer(m);
-            std::memcpy(m, members, count * sizeof(Member));
+            for (size_t i = 0; i < count; ++i) { m[i] = members[i]; }
         }
         else
             SetMembersPointer(0);
