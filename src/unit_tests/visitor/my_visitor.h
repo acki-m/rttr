@@ -29,7 +29,7 @@
 #define RTTR_MY_VISITOR_H_
 
 #include <rttr/visitor.h>
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 struct visitor_test_class;
 struct visitor_test_class_base;

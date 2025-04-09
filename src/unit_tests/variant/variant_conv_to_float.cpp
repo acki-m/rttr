@@ -27,7 +27,7 @@
 
 #include "unit_tests/variant/test_enums.h"
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <rttr/type>
 
 using namespace rttr;
@@ -199,18 +199,18 @@ TEST_CASE("variant::to_float() - from float", "[variant]")
         variant var = 214748.9f;
         REQUIRE(var.can_convert<float>() == true);
         bool ok = false;
-        CHECK(var.to_float(&ok) == Approx(214748.9));
+        CHECK(var.to_float(&ok) == Catch::Approx(214748.9));
         CHECK(ok == true);
 
         CHECK(var.convert(type::get<float>()) == true);
-        CHECK(var.get_value<float>() == Approx(214748.9));
+        CHECK(var.get_value<float>() == Catch::Approx(214748.9));
     }
 
     SECTION("valid conversion negative")
     {
         variant var = -214748.9f;
         bool ok = false;
-        CHECK(var.to_float(&ok) == Approx(-214748.9));
+        CHECK(var.to_float(&ok) == Catch::Approx(-214748.9));
         CHECK(ok == true);
         CHECK(var.convert(type::get<float>()) == true);
     }
@@ -225,18 +225,18 @@ TEST_CASE("variant::to_float() - from double", "[variant]")
         variant var = 5000000000.9;
         REQUIRE(var.can_convert<float>() == true);
         bool ok = false;
-        CHECK(var.to_float(&ok) == Approx(5000000000.9));
+        CHECK(var.to_float(&ok) == Catch::Approx(5000000000.9));
         CHECK(ok == true);
 
         CHECK(var.convert(type::get<float>()) == true);
-        CHECK(var.get_value<float>() == Approx(5000000000.9));
+        CHECK(var.get_value<float>() == Catch::Approx(5000000000.9));
     }
 
     SECTION("valid conversion negative")
     {
         variant var = -5000000000.9;
         bool ok = false;
-        CHECK(var.to_float(&ok) == Approx(-5000000000.9));
+        CHECK(var.to_float(&ok) == Catch::Approx(-5000000000.9));
         CHECK(ok == true);
         CHECK(var.convert(type::get<float>()) == true);
     }

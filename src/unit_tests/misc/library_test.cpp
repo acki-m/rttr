@@ -25,7 +25,7 @@
 *                                                                                   *
 *************************************************************************************/
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include "unit_tests/base_library/base_class.h"
 #include <rttr/type>

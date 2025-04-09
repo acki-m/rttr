@@ -29,7 +29,7 @@
 
 #include "unit_tests/test_classes.h"
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <rttr/registration>
 
 #include <vector>

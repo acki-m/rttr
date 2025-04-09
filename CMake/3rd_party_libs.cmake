@@ -57,8 +57,8 @@ set(RAPID_JSON_DIR ${RTTR_3RD_PARTY_DIR}/rapidjson-1.1.0)
 set(NONIUS_DIR ${RTTR_3RD_PARTY_DIR}/nonius-1.1.2)
 
 # Prepare "Catch" library for other executables
-set(CATCH_INCLUDE_DIR ${RTTR_3RD_PARTY_DIR}/catch-1.12.0)
-add_library(Catch INTERFACE)
+set(CATCH_INCLUDE_DIR ${RTTR_3RD_PARTY_DIR}/catch-3.8.0)
+add_library(Catch STATIC ${CATCH_INCLUDE_DIR}/catch2/catch_amalgamated.cpp)
 add_library(Catch2::Catch ALIAS Catch)
 target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
 

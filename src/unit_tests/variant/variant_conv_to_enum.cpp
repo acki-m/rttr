@@ -25,7 +25,7 @@
 *                                                                                   *
 *************************************************************************************/
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include "unit_tests/variant/test_enums.h"
 #include <rttr/registration>

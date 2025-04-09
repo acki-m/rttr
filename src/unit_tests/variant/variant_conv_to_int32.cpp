@@ -27,7 +27,7 @@
 
 #include "unit_tests/variant/test_enums.h"
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <rttr/type>
 
 using namespace rttr;

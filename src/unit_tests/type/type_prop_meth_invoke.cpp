@@ -26,7 +26,7 @@
 *************************************************************************************/
 
 #include <rttr/registration>
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 struct type_prop_invoke_test_base
 {

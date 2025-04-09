@@ -27,7 +27,7 @@
 
 #include <rttr/registration>
 #include <rttr/registration_friend>
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 using namespace rttr;
 

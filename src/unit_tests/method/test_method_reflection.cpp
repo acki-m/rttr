@@ -37,7 +37,7 @@ using namespace std;
 #include <functional>
 #include <cmath>
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 enum E_MetaData
 {

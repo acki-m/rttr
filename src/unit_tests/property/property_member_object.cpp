@@ -31,7 +31,7 @@
 #include <memory>
 #include <functional>
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 using namespace rttr;
 using namespace std;

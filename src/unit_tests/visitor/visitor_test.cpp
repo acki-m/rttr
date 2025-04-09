@@ -27,7 +27,7 @@
 
 #include "my_visitor.h"
 
-#include <catch/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <rttr/type>
 
 using namespace rttr;
